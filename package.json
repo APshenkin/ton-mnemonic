@@ -1,0 +1,34 @@
+{
+  "name": "ton-mnemonic",
+  "version": "0.0.1",
+  "description": "Telegram Open Network mnemonic tool",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "test": "mocha \"tests/**/*.test.js\" --timeout 30000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:APshenkin/ton-mnemonic.git"
+  },
+  "keywords": [
+    "ton",
+    "telegram",
+    "mnemonic",
+    "ed25519"
+  ],
+  "dependencies": {
+    "base64url": "^3.0.1",
+    "crc16": "^1.0.1",
+    "elliptic": "^6.5.1",
+    "ffi": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "^6.2.0"
+  },
+  "author": "Andrey Pshenkin <andrey.pshenkin@gmail.com>",
+  "license": "MIT"
+}
