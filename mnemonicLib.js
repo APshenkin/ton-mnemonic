@@ -14,8 +14,10 @@ if (platform === 'darwin') {
     SetDllDirectoryA: ['bool', ['string']],
   });
   kernel32.SetDllDirectoryA(path.join(__dirname, '/lib'));
+} else if (platform === 'linux') {
+  mnemoniclibLoc = path.join(__dirname, '/lib/libmnemoniclib.so');
 } else {
-  throw new Error('unsupported platform for libfift');
+  throw new Error('unsupported platform for libmnemonic');
 }
 
 const callback = ffi.Function('void', ['CString', 'CString']);
