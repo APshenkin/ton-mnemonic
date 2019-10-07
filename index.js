@@ -83,6 +83,3 @@ class Mnemonic {
 }
 
 module.exports = Mnemonic;
-
-
-///usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib
