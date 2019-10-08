@@ -14,9 +14,9 @@ if (platform === 'darwin') {
 
   // add /lib to dll directory (for windows we need linked libraries)
   const kernel32 = ffi.Library('kernel32', {
-    SetDllDirectoryA: ['bool', ['string']],
+    SetDllDirectoryW: ['bool', ['string']],
   });
-  kernel32.SetDllDirectoryA(path.join(basePath, '/lib'));
+  kernel32.SetDllDirectoryW(path.join(basePath, '/lib'));
 } else if (platform === 'linux') {
   mnemoniclibLoc = path.join(basePath, '/lib/libmnemoniclib.so');
 } else {

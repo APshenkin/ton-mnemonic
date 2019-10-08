@@ -1,6 +1,6 @@
 {
   "name": "ton-mnemonic",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Telegram Open Network mnemonic tool",
   "main": "index.js",
   "scripts": {
