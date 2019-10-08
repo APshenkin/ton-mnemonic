@@ -4,18 +4,21 @@ const path = require('path');
 const { platform } = process;
 let mnemoniclibLoc = null;
 
+// Hack for electron asar package
+const basePath = __dirname.replace('app.asar', 'app.asar.unpacked');
+
 if (platform === 'darwin') {
-  mnemoniclibLoc = path.join(__dirname, '/lib/libmnemoniclib.dylib');
+  mnemoniclibLoc = path.join(basePath, '/lib/libmnemoniclib.dylib');
 } else if (platform === 'win32') {
-  mnemoniclibLoc = path.join(__dirname, '/lib/mnemoniclib.dll');
+  mnemoniclibLoc = path.join(basePath, '/lib/mnemoniclib.dll');
 
   // add /lib to dll directory (for windows we need linked libraries)
   const kernel32 = ffi.Library('kernel32', {
     SetDllDirectoryA: ['bool', ['string']],
   });
-  kernel32.SetDllDirectoryA(path.join(__dirname, '/lib'));
+  kernel32.SetDllDirectoryA(path.join(basePath, '/lib'));
 } else if (platform === 'linux') {
-  mnemoniclibLoc = path.join(__dirname, '/lib/libmnemoniclib.so');
+  mnemoniclibLoc = path.join(basePath, '/lib/libmnemoniclib.so');
 } else {
   throw new Error('unsupported platform for libmnemonic');
 }
