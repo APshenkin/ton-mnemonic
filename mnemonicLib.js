@@ -13,7 +13,7 @@ if (platform === 'darwin') {
   mnemoniclibLoc = path.join(basePath, '/lib/mnemoniclib.dll');
 
   // add ./lib to dll directory (for windows we need linked libraries)
-  process.env.PATH = process.env.PATH === '' ? path.join(basePath, '/lib') : `${process.env.PATH}:${path.join(basePath, '/lib')}`;
+  process.env.PATH = process.env.PATH === '' ? path.join(basePath, '/lib') : `${process.env.PATH};${path.join(basePath, '/lib')}`;
 } else if (platform === 'linux') {
   mnemoniclibLoc = path.join(basePath, '/lib/libmnemoniclib.so');
 } else {
