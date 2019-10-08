@@ -12,11 +12,8 @@ if (platform === 'darwin') {
 } else if (platform === 'win32') {
   mnemoniclibLoc = path.join(basePath, '/lib/mnemoniclib.dll');
 
-  // add /lib to dll directory (for windows we need linked libraries)
-  const kernel32 = ffi.Library('kernel32', {
-    SetDllDirectoryW: ['bool', ['string']],
-  });
-  kernel32.SetDllDirectoryW(path.join(basePath, '/lib'));
+  // add ./lib to dll directory (for windows we need linked libraries)
+  process.env.PATH = process.env.PATH === '' ? path.join(basePath, '/lib') : `${process.env.PATH}:${path.join(basePath, '/lib')}`;
 } else if (platform === 'linux') {
   mnemoniclibLoc = path.join(basePath, '/lib/libmnemoniclib.so');
 } else {
