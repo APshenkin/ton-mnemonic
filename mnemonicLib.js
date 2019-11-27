@@ -1,11 +1,20 @@
 const ffi = require('ffi');
 const path = require('path');
+const child = require('child_process');
 
 const { platform } = process;
 let mnemoniclibLoc = null;
 
 // Hack for electron asar package
 const basePath = __dirname.replace('app.asar', 'app.asar.unpacked');
+
+const isMusl = () => {
+  const output = child.spawnSync('ldd', ['--version']).stderr.toString('utf8');
+  if (output.indexOf('musl') > -1) {
+    return true;
+  }
+  return false;
+};
 
 if (platform === 'darwin') {
   mnemoniclibLoc = path.join(basePath, '/lib/libmnemoniclib.dylib');
@@ -15,7 +24,11 @@ if (platform === 'darwin') {
   // add ./lib to dll directory (for windows we need linked libraries)
   process.env.PATH = process.env.PATH === '' ? path.join(basePath, '/lib') : `${process.env.PATH};${path.join(basePath, '/lib')}`;
 } else if (platform === 'linux') {
-  mnemoniclibLoc = path.join(basePath, '/lib/libmnemoniclib.so');
+  if (isMusl()) {
+    mnemoniclibLoc = path.join(basePath, '/lib/musl/libmnemoniclib.so');
+  } else {
+    mnemoniclibLoc = path.join(basePath, '/lib/libmnemoniclib.so');
+  }
 } else {
   throw new Error('unsupported platform for libmnemonic');
 }
