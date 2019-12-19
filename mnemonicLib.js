@@ -33,15 +33,17 @@ if (platform === 'darwin') {
   throw new Error('unsupported platform for libmnemonic');
 }
 
-const callback = ffi.Function('void', ['CString', 'CString']);
+const init = () => {
+  const callback = ffi.Function('void', ['CString', 'CString']);
 
-const boolCallback = ffi.Function('void', ['bool', 'CString']);
+  const boolCallback = ffi.Function('void', ['bool', 'CString']);
 
-const mnemonicLib = ffi.Library(mnemoniclibLoc, {
-  create: ['void', ['CString', callback]],
-  getPrivateKey: ['void', ['CString', 'CString', callback]],
-  isBasicSeed: ['void', ['CString', boolCallback]],
-  isPasswordSeed: ['void', ['CString', boolCallback]],
-});
+  return ffi.Library(mnemoniclibLoc, {
+    create: ['void', ['CString', callback]],
+    getPrivateKey: ['void', ['CString', 'CString', callback]],
+    isBasicSeed: ['void', ['CString', boolCallback]],
+    isPasswordSeed: ['void', ['CString', boolCallback]],
+  });
+};
 
-module.exports = mnemonicLib;
+module.exports = init;

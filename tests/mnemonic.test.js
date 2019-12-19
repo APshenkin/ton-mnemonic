@@ -2,7 +2,7 @@ const assert = require('assert');
 
 const Mnemonic = require('../index');
 
-const mnemonic = new Mnemonic();
+const mnemonic = new Mnemonic({lazyLoad: true});
 
 describe('address', () => {
   it('should create mnemonic', async () => {

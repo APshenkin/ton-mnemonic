@@ -4,12 +4,30 @@ const base64url = require('base64url');
 
 const ec = new EdDSA('ed25519');
 const crc16 = require('crc16');
-const mnemonicLib = require('./mnemonicLib');
+const initMnemonic = require('./mnemonicLib');
 
 class Mnemonic {
+  constructor({ lazyLoad = false } = {}) {
+    if (!lazyLoad) {
+      this._initLib();
+    }
+
+    this.lib = () => {
+      this._initLib();
+
+      return this.mnemonicLib;
+    };
+  }
+
+  _initLib() {
+    if (typeof this.mnemonicLib === 'undefined') {
+      this.mnemonicLib = initMnemonic();
+    }
+  }
+
   createMnemonic(mnemonicPassword = '') {
     return new Promise((resolve, reject) => {
-      mnemonicLib.create(mnemonicPassword, (res, err) => {
+      this.lib().create(mnemonicPassword, (res, err) => {
         if (err == null) {
           resolve(res);
         } else {
@@ -34,7 +52,7 @@ class Mnemonic {
       }
 
       return new Promise((resolve, reject) => {
-        mnemonicLib.getPrivateKey(mnemonic, mnemonicPassword, (res, err) => {
+        this.lib().getPrivateKey(mnemonic, mnemonicPassword, (res, err) => {
           if (err == null) {
             resolve(ec.keyFromSecret(res));
           } else {
@@ -47,7 +65,7 @@ class Mnemonic {
 
   isBasicSeed(mnemonic) {
     return new Promise((resolve, reject) => {
-      mnemonicLib.isBasicSeed(mnemonic, (res, err) => {
+      this.lib().isBasicSeed(mnemonic, (res, err) => {
         if (err == null) {
           resolve(res);
         } else {
@@ -59,7 +77,7 @@ class Mnemonic {
 
   isPasswordSeed(mnemonic) {
     return new Promise((resolve, reject) => {
-      mnemonicLib.isPasswordSeed(mnemonic, (res, err) => {
+      this.lib().isPasswordSeed(mnemonic, (res, err) => {
         if (err == null) {
           resolve(res);
         } else {
