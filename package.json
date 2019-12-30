@@ -1,6 +1,6 @@
 {
   "name": "ton-mnemonic",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Telegram Open Network mnemonic tool",
   "main": "index.js",
   "scripts": {
@@ -19,9 +19,9 @@
   ],
   "dependencies": {
     "base64url": "^3.0.1",
-    "crc16": "^1.0.1",
+    "@kronoslive/crc16": "^1.0.1",
     "elliptic": "^6.5.1",
-    "ffi": "^2.3.0"
+    "ffi": "github:APshenkin/node-ffi#ec0825b"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
