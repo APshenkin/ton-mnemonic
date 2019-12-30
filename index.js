@@ -3,7 +3,7 @@ const EdDSA = require('elliptic').eddsa;
 const base64url = require('base64url');
 
 const ec = new EdDSA('ed25519');
-const crc16 = require('@kronoslive/crc16');
+const crc16 = require('crc16');
 const initMnemonic = require('./mnemonicLib');
 
 class Mnemonic {
