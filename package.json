@@ -27,7 +27,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "mocha": "^6.2.0"
+    "mocha": "^10.2.0"
   },
   "author": "Andrey Pshenkin <andrey.pshenkin@gmail.com>",
   "license": "MIT"
